@@ -16,6 +16,19 @@ export class Collection<ModelType> {
         );
     }
 
+    async createOrUpdateDocument(
+        data: ModelType & { $id?: string },
+        permissions: string[]
+    ) {
+        if (data.$id) {
+            return this.updateDocument(
+                data as ModelType & { $id: string },
+                permissions
+            );
+        } else {
+            return this.createDocument(data, permissions);
+        }
+    }
     async createDocument(data: ModelType, permissions?: string[]) {
         return this.databases.createDocument<ModelType & Models.Document>(
             this.databaseId,
