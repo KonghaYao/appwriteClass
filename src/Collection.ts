@@ -18,7 +18,7 @@ export class Collection<ModelType> {
 
     async createOrUpdateDocument(
         data: ModelType & { $id?: string },
-        permissions: string[]
+        permissions?: string[]
     ) {
         if (data.$id) {
             return this.updateDocument(
